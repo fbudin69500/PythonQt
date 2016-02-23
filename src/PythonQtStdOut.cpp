@@ -101,6 +101,12 @@ static PyObject *PythonQtStdOutRedirect_isatty(PyObject * /*self*/, PyObject * /
   return Py_False;
 }
 
+static PyObject *PythonQtStdOutRedirect_close(PyObject * /*self*/, PyObject * /*args*/)
+{
+  Py_INCREF(Py_True);
+  return Py_True;
+}
+
 static PyMethodDef PythonQtStdOutRedirect_methods[] = {
   {"write", (PyCFunction)PythonQtStdOutRedirect_write, METH_VARARGS,
   "redirect the writing to a callback"},
@@ -109,6 +115,9 @@ static PyMethodDef PythonQtStdOutRedirect_methods[] = {
   },
   {"isatty", (PyCFunction)PythonQtStdOutRedirect_isatty,   METH_NOARGS,
   "return False since this object is not a tty-like device. Needed for logging framework"
+  },
+  {"close", (PyCFunction)PythonQtStdOutRedirect_close,   METH_NOARGS,
+  "return True since doesn't do anything. Needed for multiprocessing"
   },
   {NULL,    NULL, 0 , NULL} /* sentinel */
 };

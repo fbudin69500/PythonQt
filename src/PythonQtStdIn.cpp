@@ -62,9 +62,17 @@ static PyObject *PythonQtStdInRedirect_readline(PyObject * self, PyObject * args
   return Py_BuildValue("s", string.toLatin1().constData());
 }
 
+static PyObject *PythonQtStdInRedirect_close(PyObject * /*self*/, PyObject * /*args*/)
+{
+  Py_INCREF(Py_True);
+  return Py_True;
+}
+
 static PyMethodDef PythonQtStdInRedirect_methods[] = {
   {"readline", (PyCFunction)PythonQtStdInRedirect_readline, METH_VARARGS,
    "read input line"},
+  {"close", (PyCFunction)PythonQtStdInRedirect_close, METH_VARARGS,
+   "return True since doesn't do anything. Needed for multiprocessing"},
   {NULL,    NULL, 0 , NULL} /* sentinel */
 };
 
